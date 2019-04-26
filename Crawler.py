@@ -1,4 +1,5 @@
 
+'''
 #爬取中国植物志网站上的植物名称及特称
 
 from bs4 import BeautifulSoup
@@ -31,33 +32,78 @@ for i in range(0,14):
             sum = sum + 1
 paint_file.close()
 
+'''
+
+'''
+#使用 urlretrieve下载图片
+# from urllib.request import urlretrieve
+# import os
+
+#创建文件夹
+# os.makedirs('./img/',exist_ok=True)
+
+# image_url = 'https://morvanzhou.github.io/static/img/description/learning_step_flowchart.png'
+# urlretrieve(image_url,'./img/study.png')
+
+
+
+#使用request下载图片
+
+# import requests
+# image_url = 'https://morvanzhou.github.io/static/img/description/learning_step_flowchart.png'
+# r = requests.get(image_url)
+# with open('./img/study1.png','wb') as f:
+#     for chunk in r.iter_content(chunk_size=32):
+#         f.write(chunk)
+
+
+# 下载国家地理中文网美图实战
+
+from bs4 import BeautifulSoup
+import requests
+
+url = "http://www.ngchina.com.cn/animals/"
+html = requests.get(url).text
+soup = BeautifulSoup(html,'lxml')
+img_url = soup.find_all('ul',{'class':'img_list'})
+for ul in img_url:
+    imgs = ul.find_all('img')
+    for img in imgs:
+        url = img['src']
+        r = requests.get(url)
+        image_name = url.split('/')[-1]
+        with open('./img/%s'% image_name,'wb') as f:
+            for chunk in r.iter_content(chunk_size=128):
+                f.write(chunk)
+        print('Saved %s' % image_name)
+
+'''
 
 
 
 
-# temp= temp.replace(' ','20%')
-# print(temp)
-# html = urlopen("http://frps.iplant.cn"+temp).read().decode('utf-8')
-# soup = BeautifulSoup(html,features='lxml')
-# text = soup.find_all(style="font-size:14px; margin-top:10px; ")
-# text1 = soup.find_all(style='text-indent:24px')
-# print(text[0].b.string)
-# print(text1[2].string)
-# # temp = num[0][0]['href']
-# i = 1
-# paint_file.write(str(i)+"  :  "+text[0].b.string + "\n")
-# paint_file.write(text1[2].string+"\n")
 
 
 
-# print(len(num))
-# print(num)
-# print(num[0][0]['href'])
 
 
-# sum = len(sub_urls)
-# i = 0
-# print(sum,'\n')
-# while(i < sum):
-#     print(sub_urls[i]['href'])
-#     i = i + 1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
